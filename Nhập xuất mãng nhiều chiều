@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+
+const int MAXRO = 10, MAXCOL = 10;
+
+bool checkInPut(int r, int c) 
+{
+	bool k = false;
+	if (r <= 0 || r > MAXRO || c <= 0 || c > MAXCOL)
+		k = true;
+	return k;
+}
+
+void inPut(int arr[MAXRO][MAXCOL], int r, int c)
+{
+	for (int i = 0; i < r; i++)
+	{
+		for (int j = 0; j < c; j++)
+		{
+			cout << "Nhap gia tri phan tu a[" << i << "] [" << j << "] = ";
+			cin >> arr[i][j];
+		}
+	}
+}
+
+void outPut(int a[MAXRO][MAXCOL], int r, int c)
+{
+	cout << "Mang co gia tri la:\n";
+	for (int i = 0; i < r; i++)
+	{
+		for (int j = 0; j < c; j++)
+			cout << a[i][j] << "\t";
+		cout << endl;
+	}
+}
+
+bool check(int a[MAXRO][MAXCOL], int r, int c, int x)
+{
+	bool flag = false;
+	for (int i = 0; i < r; i++)
+	{
+		for (int j = 0; j < c; j++)
+		{
+			if (a[i][j] == x)
+			{
+				flag = true;
+				break;
+			}
+
+		}
+	}
+	return flag;
+}
+
+bool check2(int a[MAXRO][MAXCOL], int i, int j, int x)
+{
+	bool flag = false;
+	if (a[i][j] == x)
+		flag = true;
+	return flag;
+}
+void positonX(int a[MAXRO][MAXCOL], int r, int c, int x)
+{
+	int row = -1 , colum = -1  ;
+	for (int i = 0; i < r; i++)
+	{
+		for (int j = 0; j < c; j++)
+			if (check2(a, i, j, x))
+			{
+				row = i;
+				colum = j;
+				break;
+			}
+	}
+	cout << "vi tri xuat hien dau tien la: " << row << " " << colum << endl;
+	
+}
+int main()
+{
+	int arr[MAXRO][MAXCOL];
+	int r, c, x;
+	do {
+		cout << "Nhap so hang: "; cin >> r;
+		cout << "Nhap so cot:  "; cin >> c;
+		if (checkInPut(r,c))
+			cout << "Nhap sai! vui long nhap lai \n";
+	} while (checkInPut(r, c));
+	//Nhap mang 
+	inPut(arr, r, c);
+	//Xuat mang 
+	outPut(arr, r, c);
+	//check x
+	cout << "Nhap x: "; cin >> x;
+	if (check(arr, r, c, x))
+		cout << x << " co trong mang \n";
+	else
+		cout << x << " khong co trong mang \n";
+	//Xet vi tri x
+	positonX(arr, r, c, x);
+
+}
